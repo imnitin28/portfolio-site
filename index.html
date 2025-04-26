@@ -22,7 +22,19 @@
       <a href="https://blog.knoldus.com/author/minitin28/" class="text-blue-600">Blog</a>
     </div>
   </section>
-
+  <script>  
+    // Fetch skills from a JSON file
+    fetch('skills.json')
+      .then(response => response.json())
+      .then(data => {
+        const skillsList = document.getElementById('skills-list');
+        data.skills.forEach(skill => {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${skill.category}:</strong> ${skill.items.join(', ')}`;
+          skillsList.appendChild(li);
+        });
+      });
+  </script>
   <!-- Blog Section -->
   <section class="py-10 px-4">
     <h2 class="text-2xl font-bold mb-4">📝 Blog Posts</h2>
@@ -73,6 +85,5 @@
         });
       });
   </script>
-
 </body>
 </html>
