@@ -59,7 +59,8 @@
           container.appendChild(el);
         });
       });
-
+  </script>
+  <script>
     fetch('skills.json')
       .then(response => response.json())
       .then(data => {
@@ -67,10 +68,10 @@
         data.updates.forEach(update => {
           const el = document.createElement('div');
           el.className = "bg-white p-4 rounded shadow";
-          el.innerHTML = `<p class="text-gray-600 text-sm">${update.date}</p><p>${update.text}</p>`;
+          el.innerHTML = `<p class="text-gray-600 text-sm">${skill.category}</p><p>${skill.items}</p>`;
           container.appendChild(el);
         });
       });
-  </script>
+  </script>  
 </body>
 </html>
