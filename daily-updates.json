@@ -1,0 +1,13 @@
+{
+    "updates": [
+      {
+        "date": "2025-04-26",
+        "text": "Completed Terraform module for APIM integration."
+      },
+      {
+        "date": "2025-04-25",
+        "text": "Wrote a blog on reducing Docker image size."
+      }
+    ]
+  }
+  

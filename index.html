@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nitin Mishra | Senior DevOps Engineer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Hero Section -->
+  <section class="text-center py-10 bg-white shadow">
+    <img src="your-photo.jpg" alt="Your Photo" class="mx-auto w-32 h-32 rounded-full">
+    <h1 class="text-3xl font-bold mt-4">Your Name</h1>
+    <p class="text-gray-600">Senior DevOps Engineer | GCP | Azure | Terraform</p>
+    <div class="flex justify-center mt-4 space-x-4">
+      <a href="https://github.com/yourusername" class="text-blue-600">GitHub</a>
+      <a href="https://linkedin.com/in/yourusername" class="text-blue-600">LinkedIn</a>
+      <a href="https://yourblog.com" class="text-blue-600">Blog</a>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="py-10 px-4">
+    <h2 class="text-2xl font-bold mb-4">📝 Blog Posts</h2>
+    <ul class="list-disc list-inside space-y-2">
+      <li><a href="https://yourblog.com/post1" class="text-blue-600">How to reduce Docker image size</a></li>
+      <li><a href="https://yourblog.com/post2" class="text-blue-600">Terraform Modules 101</a></li>
+      <li><a href="https://yourblog.com/post3" class="text-blue-600">Jenkins Pipeline Basics</a></li>
+    </ul>
+  </section>
+
+  <!-- GitHub Contributions -->
+  <section class="py-10 px-4 bg-white">
+    <h2 class="text-2xl font-bold mb-4">📊 GitHub Contributions</h2>
+    <iframe src="https://ghchart.rshah.org/yourusername" frameborder="0" class="w-full h-40"></iframe>
+  </section>
+
+  <!-- Daily Updates -->
+  <section class="py-10 px-4">
+    <h2 class="text-2xl font-bold mb-4">📅 Daily Updates</h2>
+    <div id="daily-updates" class="space-y-4">
+      <!-- Updates will be loaded here -->
+    </div>
+  </section>
+
+  <script>
+    // Fetch daily updates from a JSON file
+    fetch('daily-updates.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('daily-updates');
+        data.updates.forEach(update => {
+          const el = document.createElement('div');
+          el.className = "bg-white p-4 rounded shadow";
+          el.innerHTML = `<p class="text-gray-600 text-sm">${update.date}</p><p>${update.text}</p>`;
+          container.appendChild(el);
+        });
+      });
+  </script>
+
+</body>
+</html>
