@@ -1,41 +1,15 @@
 {
     "skills": [
-      {
-        "category": "Scripting",
-        "items": ["Bash", "PowerShell"]
-      },
-      {
-        "category": "Containerization",
-        "items": ["Docker", "Podman"]
-      },
-      {
-        "category": "Container Orchestration",
-        "items": ["Kubernetes", "OpenShift"]
-      },
-      {
-        "category": "CI/CD",
-        "items": ["Azure DevOps", "Jenkins", "GitHub Actions"]
-      },
-      {
-        "category": "SCM",
-        "items": ["GitHub", "GitLab", "Bitbucket"]
-      },
-      {
-        "category": "Cloud",
-        "items": ["Azure", "GCP"]
-      },
-      {
-        "category": "Programming Languages",
-        "items": ["Java", ".NET"]
-      },
-      {
-        "category": "Build Tools",
-        "items": ["Maven", "MSBuild"]
-      },
-      {
-        "category": "Monitoring",
-        "items": ["Azure Monitoring", "Azure Log Analytics", "EFK Stack", "Grafana"]
-      }
+      "Terraform",
+      "AWS",
+      "Azure",
+      "GCP",
+      "Docker",
+      "Kubernetes",
+      "Jenkins",
+      "Ansible",
+      "Python",
+      "Linux"
     ]
   }
   

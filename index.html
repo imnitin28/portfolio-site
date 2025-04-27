@@ -38,6 +38,15 @@
     <iframe src="https://ghchart.rshah.org/imnitin28" frameborder="0" class="w-full h-40"></iframe>
   </section>
 
+
+  <!-- Skills Section -->
+<section class="py-10 px-4 bg-white">
+    <h2 class="text-2xl font-bold mb-4">🛠️ Skills</h2>
+    <div id="skills-list" class="flex flex-wrap gap-4">
+      <!-- Skills will be loaded here -->
+    </div>
+  </section>
+  
   <!-- Daily Updates -->
   <section class="py-10 px-4">
     <h2 class="text-2xl font-bold mb-4">📅 Daily Updates</h2>
@@ -59,19 +68,20 @@
           container.appendChild(el);
         });
       });
-  </script>
-  <script>
+
+    // Fetch skills from a JSON file
     fetch('skills.json')
       .then(response => response.json())
       .then(data => {
-        const container = document.getElementById('Skills');
-        data.updates.forEach(update => {
-          const el = document.createElement('div');
-          el.className = "bg-white p-4 rounded shadow";
-          el.innerHTML = `<p class="text-gray-600 text-sm">${skill.category}</p><p>${skill.items}</p>`;
-          container.appendChild(el);
-        });
-      });
-  </script>  
+        const skillsContainer = document.getElementById('skills-list');
+        data.skills.forEach(skill => {
+            const el = document.createElement('span');
+            el.className = "bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium";
+            el.textContent = skill;
+            skillsContainer.appendChild(el);
+    });
+  });
+  
+  </script> 
 </body>
 </html>
