@@ -1,15 +1,29 @@
 {
     "skills": [
-      "Terraform",
-      "AWS",
-      "Azure",
-      "GCP",
-      "Docker",
-      "Kubernetes",
-      "Jenkins",
-      "Ansible",
-      "Python",
-      "Linux"
+        "Linux",
+        "Bash",
+        "PowerShell",
+        "Git",
+        "GitHub",
+        "GitLab",
+        "Bitbucket",
+        "JIRA",
+        "Docker",
+        "Podman",
+        "Kubernetes",
+        "OpenShift",
+        "Terraform",
+        "Ansible",
+        "AWS",
+        "Azure Cloud",
+        "GCP",
+        "Azure DevOps",
+        "GitHub Actions",
+        "GitLab CI/CD",
+        "Bitbucket Pipelines",
+        "Jenkins",
+        "Ansible",
+        "Python"
     ]
   }
   
