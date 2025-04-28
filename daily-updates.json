@@ -1,13 +1,16 @@
 {
     "updates": [
-      {
-        "date": "2025-04-26",
-        "text": "Completed Terraform module for APIM integration."
-      },
-      {
-        "date": "2025-04-25",
-        "text": "Wrote a blog on reducing Docker image size."
-      }
+        {
+            "date": "2025-04-28",
+            "text": "Working on a project that demonstrates SLA,SLO and SLI."
+        },
+        { 
+            "date": "2025-04-26",
+            "text": "Completed Terraform module for APIM integration."
+        },
+        {
+            "date": "2025-04-25",
+            "text": "Wrote a blog on reducing Docker image size."
+        }
     ]
-  }
-  
+}
