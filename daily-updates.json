@@ -1,6 +1,10 @@
 {
     "updates": [
         {
+            "date": "2025-05-02",
+            "text": "Completed POC on 'Monitoring this Web App with Datadog: A Practical Guide to SLA, SLO, and SLI' "
+        },
+        {
             "date": "2025-04-28",
             "text": "Working on a project that demonstrates SLA,SLO and SLI."
         },
