@@ -33,7 +33,7 @@
     color:var(--text);
     font-family:'IBM Plex Sans', sans-serif;
     line-height:1.6;
-    padding:40px 18px 80px;
+    padding:40px clamp(18px, 4vw, 64px) 80px;
     -webkit-font-smoothing:antialiased;
   }
 
@@ -44,7 +44,7 @@
 
   /* ---------- Terminal window ---------- */
   .term{
-    max-width:760px;
+    max-width:1680px;
     margin:0 auto;
     background:var(--panel);
     border:1px solid var(--line);
@@ -76,7 +76,7 @@
   .term-body{ padding:8px 0 4px; }
 
   section.block{
-    padding:26px 28px 30px;
+    padding:26px clamp(20px, 3vw, 44px) 30px;
     border-bottom:1px solid var(--line);
   }
   section.block:last-child{ border-bottom:none; }
@@ -122,7 +122,7 @@
   .links a:hover{ color:var(--amber); border-color:var(--amber); }
 
   /* ---------- Blog listing ---------- */
-  .filelist{ list-style:none; margin:0; padding:0; }
+  .filelist{ list-style:none; margin:0; padding:0; max-width:900px; }
   .filelist li{
     display:flex;
     gap:14px;
@@ -151,16 +151,51 @@
   }
 
   /* ---------- GitHub ---------- */
-  .gh-panel{
-    border-radius:6px;
+  .gh-stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:1px;
+    background:var(--line);
     border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    max-width:1200px;
+  }
+  .gh-stat{
     background:var(--panel);
-    padding:6px;
+    padding:16px 10px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+  }
+  .gh-num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:19px;
+    color:var(--green);
+    font-weight:600;
+  }
+  .gh-lbl{ font-size:11px; color:var(--dim); }
+  .lang-bars{ margin-top:18px; display:flex; flex-direction:column; gap:9px; max-width:640px; }
+  .lang-row{ display:flex; align-items:center; gap:10px; font-size:12.5px; }
+  .lang-name{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--muted);
+    width:104px;
+    flex-shrink:0;
+    text-align:right;
+  }
+  .lang-track{
+    flex:1;
+    height:6px;
+    background:var(--panel-2);
+    border-radius:3px;
     overflow:hidden;
   }
-  .gh-chart{ display:block; width:100%; height:auto; }
-  .gh-stats{ margin-top:16px; display:flex; justify-content:center; }
-  .gh-stats img{ max-width:100%; border-radius:6px; border:1px solid var(--line); }
+  .lang-fill{ height:100%; background:var(--green); border-radius:3px; }
+  .lang-pct{ color:var(--dim); width:38px; font-family:'JetBrains Mono', monospace; font-size:11.5px; }
+  .gh-fallback{ color:var(--dim); font-size:13px; }
+  .gh-fallback a{ color:var(--amber); border-bottom:1px solid var(--amber-dim); text-decoration:none; }
 
   /* ---------- Skills ---------- */
   .skills{ display:flex; flex-wrap:wrap; gap:9px; }
@@ -175,7 +210,7 @@
   }
 
   /* ---------- Activity log ---------- */
-  .log{ display:flex; flex-direction:column; gap:2px; font-size:13.5px; }
+  .log{ display:flex; flex-direction:column; gap:2px; font-size:13.5px; max-width:900px; }
   .log-row{
     display:grid;
     grid-template-columns:98px 1fr;
@@ -263,13 +298,16 @@
 
       <!-- github -->
       <section class="block">
-        <p class="prompt mono"><span class="user">nitin@devops</span><span class="path">:~$</span> <span class="cmd">./github-stats.sh</span> <span class="flag">--user imnitin28</span></p>
-        <h2 class="label">contribution graph</h2>
-        <div class="gh-panel">
-          <img src="https://github-readme-activity-graph.vercel.app/graph?username=imnitin28&theme=react-dark&hide_border=true&hide_title=true&bg_color=10161b&color=dbe4ea&line=6fd99a&point=e8b063&area=true&area_color=6fd99a" alt="GitHub contribution activity for imnitin28" class="gh-chart" loading="lazy">
-        </div>
-        <div class="gh-stats">
-          <img src="https://github-readme-stats.vercel.app/api?username=imnitin28&show_icons=true&theme=tokyonight" alt="GitHub stats for imnitin28" loading="lazy">
+        <p class="prompt mono"><span class="user">nitin@devops</span><span class="path">:~$</span> <span class="cmd">gh</span> <span class="flag">api users/imnitin28</span></p>
+        <h2 class="label">github</h2>
+        <div id="gh-panel">
+          <div class="gh-stats-grid">
+            <div class="gh-stat"><span class="gh-num" id="gh-repos">–</span><span class="gh-lbl">repos</span></div>
+            <div class="gh-stat"><span class="gh-num" id="gh-followers">–</span><span class="gh-lbl">followers</span></div>
+            <div class="gh-stat"><span class="gh-num" id="gh-stars">–</span><span class="gh-lbl">stars</span></div>
+            <div class="gh-stat"><span class="gh-num" id="gh-since">–</span><span class="gh-lbl">on GitHub since</span></div>
+          </div>
+          <div class="lang-bars" id="lang-bars"></div>
         </div>
       </section>
 
@@ -293,6 +331,42 @@
   <footer>built &amp; deployed from a Netlify pipeline · updated via JSON</footer>
 
   <script>
+    // ---- GitHub (official API — no third-party badge services) ----
+    const GH_USER = 'imnitin28';
+    fetch(`https://api.github.com/users/${GH_USER}`)
+      .then(r => { if (!r.ok) throw new Error('user fetch failed'); return r.json(); })
+      .then(user => {
+        document.getElementById('gh-repos').textContent = user.public_repos ?? '–';
+        document.getElementById('gh-followers').textContent = user.followers ?? '–';
+        document.getElementById('gh-since').textContent = user.created_at
+          ? new Date(user.created_at).getFullYear()
+          : '–';
+        return fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100`);
+      })
+      .then(r => { if (!r.ok) throw new Error('repos fetch failed'); return r.json(); })
+      .then(repos => {
+        const stars = repos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
+        document.getElementById('gh-stars').textContent = stars;
+
+        const counts = {};
+        repos.forEach(r => { if (r.language) counts[r.language] = (counts[r.language] || 0) + 1; });
+        const total = Object.values(counts).reduce((a, b) => a + b, 0) || 1;
+        const top = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+        const barsEl = document.getElementById('lang-bars');
+        top.forEach(([lang, count]) => {
+          const pct = Math.round((count / total) * 100);
+          const row = document.createElement('div');
+          row.className = 'lang-row';
+          row.innerHTML = `<span class="lang-name">${lang}</span><span class="lang-track"><span class="lang-fill" style="width:${pct}%"></span></span><span class="lang-pct">${pct}%</span>`;
+          barsEl.appendChild(row);
+        });
+      })
+      .catch(() => {
+        document.getElementById('gh-panel').innerHTML =
+          `<p class="gh-fallback">GitHub API unreachable right now — see the full profile on <a href="https://github.com/${GH_USER}" target="_blank" rel="noopener">github.com/${GH_USER}</a>.</p>`;
+      });
+
     // ---- Blog posts ----
     // One working link + a queue of posts pending migration to a stable URL.
     const posts = [
