@@ -1,100 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nitin Mishra | Senior DevOps Engineer</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nitin Mishra — Senior DevOps Engineer</title>
+<meta name="description" content="Nitin Mishra, Senior DevOps Engineer working across GCP, Azure and Terraform-driven infrastructure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:        #0a0e12;
+    --panel:     #10161b;
+    --panel-2:   #141b21;
+    --line:      #222c33;
+    --text:      #dbe4ea;
+    --muted:     #7c8a94;
+    --dim:       #4d5960;
+    --green:     #6fd99a;
+    --amber:     #e8b063;
+    --amber-dim: #8a6a3c;
+    --focus:     #e8b063;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, #14202318 0%, transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    padding:40px 18px 80px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+  :focus-visible{ outline:2px solid var(--focus); outline-offset:2px; border-radius:2px; }
+
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- Terminal window ---------- */
+  .term{
+    max-width:760px;
+    margin:0 auto;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    box-shadow:0 30px 80px -30px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.02);
+    overflow:hidden;
+  }
+
+  .term-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 16px;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--line);
+  }
+  .dot{ width:10px; height:10px; border-radius:50%; }
+  .dot.r{ background:#5e3a37; }
+  .dot.y{ background:#5e5233; }
+  .dot.g{ background:#365e42; }
+  .term-title{
+    margin:0 auto;
+    padding-right:44px;
+    font-size:12.5px;
+    color:var(--dim);
+    letter-spacing:.02em;
+  }
+
+  .term-body{ padding:8px 0 4px; }
+
+  section.block{
+    padding:26px 28px 30px;
+    border-bottom:1px solid var(--line);
+  }
+  section.block:last-child{ border-bottom:none; }
+
+  .prompt{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:8px;
+    font-size:13.5px;
+    color:var(--dim);
+    margin-bottom:18px;
+  }
+  .prompt .user{ color:var(--green); }
+  .prompt .path{ color:#5a7a91; }
+  .prompt .cmd{ color:var(--text); }
+  .prompt .flag{ color:var(--amber); }
+
+  /* ---------- Hero ---------- */
+  .hero{ display:flex; gap:22px; align-items:center; }
+  .hero img{
+    width:76px; height:76px; border-radius:8px;
+    object-fit:cover;
+    border:1px solid var(--line);
+    flex-shrink:0;
+  }
+  .hero h1{
+    margin:0 0 4px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:21px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .hero .role{ color:var(--muted); font-size:14.5px; margin:0 0 12px; }
+  .links{ display:flex; flex-wrap:wrap; gap:4px 16px; font-size:13.5px; }
+  .links a{
+    text-decoration:none;
+    color:var(--text);
+    border-bottom:1px solid var(--dim);
+    padding-bottom:1px;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .links a:hover{ color:var(--amber); border-color:var(--amber); }
+
+  /* ---------- Blog listing ---------- */
+  .filelist{ list-style:none; margin:0; padding:0; }
+  .filelist li{
+    display:flex;
+    gap:14px;
+    align-items:baseline;
+    padding:9px 0;
+    border-bottom:1px dashed var(--line);
+    font-size:14px;
+  }
+  .filelist li:last-child{ border-bottom:none; }
+  .filelist .perm{ color:var(--dim); font-size:12px; flex-shrink:0; width:64px; }
+  .filelist a{
+    text-decoration:none;
+    color:var(--text);
+    transition:color .15s ease;
+  }
+  .filelist a:hover{ color:var(--green); }
+  .filelist .soon{ color:var(--dim); }
+  .filelist .tag{
+    margin-left:auto;
+    font-size:11px;
+    color:var(--amber-dim);
+    border:1px solid var(--amber-dim);
+    border-radius:3px;
+    padding:1px 6px;
+    flex-shrink:0;
+  }
+
+  /* ---------- GitHub ---------- */
+  .gh-chart{
+    width:100%;
+    border-radius:6px;
+    border:1px solid var(--line);
+    background:#0d1420;
+    filter:saturate(0.9);
+  }
+  .gh-stats{ margin-top:16px; display:flex; justify-content:center; }
+  .gh-stats img{ max-width:100%; border-radius:6px; border:1px solid var(--line); }
+
+  /* ---------- Skills ---------- */
+  .skills{ display:flex; flex-wrap:wrap; gap:9px; }
+  .skill{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--green);
+    background:#0d1712;
+    border:1px solid #1e3327;
+    border-radius:4px;
+    padding:5px 10px;
+  }
+
+  /* ---------- Activity log ---------- */
+  .log{ display:flex; flex-direction:column; gap:2px; font-size:13.5px; }
+  .log-row{
+    display:grid;
+    grid-template-columns:98px 1fr;
+    gap:14px;
+    padding:7px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .log-row:last-child{ border-bottom:none; }
+  .log-date{ color:var(--dim); font-family:'JetBrains Mono', monospace; font-size:12px; padding-top:1px; }
+  .log-text{ color:var(--text); }
+  .cursor{
+    display:inline-block;
+    width:7px; height:14px;
+    background:var(--amber);
+    margin-left:4px;
+    vertical-align:middle;
+    animation:blink 1.05s step-end infinite;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .cursor{ animation:none; opacity:1; }
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  h2.label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.04em;
+    color:var(--muted);
+    margin:0 0 16px;
+    font-weight:500;
+  }
+
+  footer{
+    max-width:760px;
+    margin:22px auto 0;
+    text-align:center;
+    color:var(--dim);
+    font-size:12px;
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  @media (max-width:520px){
+    body{ padding:20px 10px 60px; }
+    section.block{ padding:20px 18px 24px; }
+    .hero{ flex-direction:column; align-items:flex-start; }
+    .log-row{ grid-template-columns:1fr; gap:2px; }
+  }
+</style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body>
 
-  <!-- Hero Section -->
-  <section class="text-center py-10 bg-white shadow">
-    <img src="image_nitin.png" alt="Nitin's Photo" class="mx-auto w-32 h-32 rounded-full">
-    <h1 class="text-3xl font-bold mt-4">Nitin Mishra</h1>
-    <p class="text-gray-600">Senior DevOps Engineer | GCP | Azure | Terraform</p>
-    <div class="flex justify-center mt-4 space-x-4">
-      <a href="https://github.com/imnitin28" class="text-blue-600">GitHub</a>
-      <a href="https://linkedin.com/in/imnitin28" class="text-blue-600">LinkedIn</a>
-      <a href="https://medium.com/me/stories?tab=posts-published" class="text-blue-600">Blog</a>
+  <div class="term">
+    <div class="term-bar">
+      <span class="dot r"></span>
+      <span class="dot y"></span>
+      <span class="dot g"></span>
+      <p class="term-title mono">nitin@devops — 80×24</p>
     </div>
-  </section>
-  <!-- Blog Section -->
-  <section class="py-10 px-4">
-    <h2 class="text-2xl font-bold mb-4">📝 Blog Posts</h2>
-    <ul class="list-disc list-inside space-y-2">
-      <li><a href="https://medium.com/@nitin.mishra1455/squash-commits-in-git-bc51485529d4 - migrating soon" class="text-blue-600">Understanding Failover Scenario in Cloud</a></li>
-      <li><a href="https://medium.com/@nitin.mishra1455/squash-commits-in-git-bc51485529d4 - migrating soon" class="text-blue-600">Dashboards and alerts in GCP Cloud Operations </a></li>
-      <li><a href="https://medium.com/@nitin.mishra1455/squash-commits-in-git-bc51485529d4 - migrating soon" class="text-blue-600">Basics of DDoS attack</a></li>
-      <li><a href="https://medium.com/@nitin.mishra1455/squash-commits-in-git-bc51485529d4 - migrating soon" class="text-blue-600">Getting Started with Ansible Tower: Quick Install</a></li>
-      <li><a href="https://medium.com/@nitin.mishra1455/squash-commits-in-git-bc51485529d4 - migrating soon" class="text-blue-600">Understanding few common incident metrics </a></li>
-      <li><a href="https://medium.com/@nitin.mishra1455/squash-commits-in-git-bc51485529d4 - migrating soon" class="text-blue-600">Exposing Container Ports in Docker</a></li>
-      <li><a href="https://medium.com/@nitin.mishra1455/squash-commits-in-git-bc51485529d4 - migrating soon" class="text-blue-600">Manage AWS Secrets with aws-vault</a></li>
-      <li><a href="https://medium.com/@nitin.mishra1455/squash-commits-in-git-bc51485529d4 - migrating soon" class="text-blue-600">Setup Jenkins in Docker container </a></li>
-      <li><a href="https://medium.com/@nitin.mishra1455/squash-commits-in-git-bc51485529d4" class="text-blue-600">Squash commits in GIT</a></li>
-    </ul>
-  </section>
 
-  <!-- GitHub Contributions -->
-  <section class="py-10 px-4 bg-white">
-    <h2 class="text-2xl font-bold mb-4">📊 GitHub Contributions</h2>
-    <iframe src="https://ghchart.rshah.org/imnitin28" frameborder="0" class="w-full h-40"></iframe>
-  </section>
+    <div class="term-body">
 
-  <section class="py-10 px-4">
-    <h2 class="text-2xl font-bold mb-4">🌟 GitHub Stats</h2>
-    <div class="flex justify-center">
-      <img src="https://github-readme-stats.vercel.app/api?username=imnitin28&show_icons=true&theme=tokyonight" alt="GitHub Stats" class="rounded-lg shadow">
-    </div>
-  </section>
-  
+      <!-- whoami -->
+      <section class="block">
+        <p class="prompt mono"><span class="user">nitin@devops</span><span class="path">:~$</span> <span class="cmd">whoami</span></p>
+        <div class="hero">
+          <img src="image_nitin.png" alt="Photo of Nitin Mishra">
+          <div>
+            <h1>Nitin Mishra</h1>
+            <p class="role">Senior DevOps Engineer — GCP · Azure · Terraform</p>
+            <div class="links">
+              <a href="https://github.com/imnitin28" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://linkedin.com/in/imnitin28" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://medium.com/@nitin.mishra1455" target="_blank" rel="noopener">Blog</a>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <!-- Skills Section -->
-<section class="py-10 px-4 bg-white">
-    <h2 class="text-2xl font-bold mb-4">🛠️ Skills</h2>
-    <div id="skills-list" class="flex flex-wrap gap-4">
-      <!-- Skills will be loaded here -->
+      <!-- blog -->
+      <section class="block">
+        <p class="prompt mono"><span class="user">nitin@devops</span><span class="path">:~/blog$</span> <span class="cmd">ls</span> <span class="flag">-la</span></p>
+        <h2 class="label">recent posts</h2>
+        <ul class="filelist" id="blog-list"></ul>
+      </section>
+
+      <!-- github -->
+      <section class="block">
+        <p class="prompt mono"><span class="user">nitin@devops</span><span class="path">:~$</span> <span class="cmd">./github-stats.sh</span> <span class="flag">--user imnitin28</span></p>
+        <h2 class="label">contribution graph</h2>
+        <iframe src="https://ghchart.rshah.org/6fd99a/imnitin28" title="GitHub contribution chart" frameborder="0" class="gh-chart" style="height:130px;"></iframe>
+        <div class="gh-stats">
+          <img src="https://github-readme-stats.vercel.app/api?username=imnitin28&show_icons=true&theme=tokyonight&hide_border=true&bg_color=00000000" alt="GitHub stats for imnitin28" loading="lazy">
+        </div>
+      </section>
+
+      <!-- skills -->
+      <section class="block">
+        <p class="prompt mono"><span class="user">nitin@devops</span><span class="path">:~$</span> <span class="cmd">jq</span> <span class="flag">'.skills[]'</span> skills.json</p>
+        <h2 class="label">toolchain</h2>
+        <div class="skills" id="skills-list"></div>
+      </section>
+
+      <!-- activity -->
+      <section class="block">
+        <p class="prompt mono"><span class="user">nitin@devops</span><span class="path">:~$</span> <span class="cmd">tail</span> <span class="flag">-f activity.log</span></p>
+        <h2 class="label">daily updates</h2>
+        <div class="log" id="daily-updates"></div>
+      </section>
+
     </div>
-  </section>
-  
-  <!-- Daily Updates -->
-  <section class="py-10 px-4">
-    <h2 class="text-2xl font-bold mb-4">📅 Daily Updates</h2>
-    <div id="daily-updates" class="space-y-4">
-      <!-- Updates will be loaded here -->
-    </div>
-  </section>
+  </div>
+
+  <footer>built &amp; deployed from a Netlify pipeline · updated via JSON</footer>
 
   <script>
-    // Fetch daily updates from a JSON file
+    // ---- Blog posts ----
+    // One working link + a queue of posts pending migration to a stable URL.
+    const posts = [
+      { title: "Squash commits in Git", url: "https://medium.com/@nitin.mishra1455/squash-commits-in-git-bc51485529d4", live: true },
+      { title: "Understanding failover scenarios in the cloud", live: false },
+      { title: "Dashboards and alerts in GCP Cloud Operations", live: false },
+      { title: "Basics of a DDoS attack", live: false },
+      { title: "Getting started with Ansible Tower: quick install", live: false },
+      { title: "Understanding common incident metrics", live: false },
+      { title: "Exposing container ports in Docker", live: false },
+      { title: "Managing AWS secrets with aws-vault", live: false },
+      { title: "Setting up Jenkins in a Docker container", live: false },
+    ];
+    const blogList = document.getElementById('blog-list');
+    posts.forEach(p => {
+      const li = document.createElement('li');
+      if (p.live) {
+        li.innerHTML = `<span class="perm mono">-rw-r--r--</span><a href="${p.url}" target="_blank" rel="noopener">${p.title}.md</a>`;
+      } else {
+        li.innerHTML = `<span class="perm mono">-rw-------</span><span class="soon">${p.title}.md</span><span class="tag mono">migrating</span>`;
+      }
+      blogList.appendChild(li);
+    });
+
+    // ---- Daily updates (sorted newest first) ----
     fetch('daily-updates.json')
-      .then(response => response.json())
+      .then(r => r.json())
       .then(data => {
         const container = document.getElementById('daily-updates');
-        data.updates.forEach(update => {
-          const el = document.createElement('div');
-          el.className = "bg-white p-4 rounded shadow";
-          el.innerHTML = `<p class="text-gray-600 text-sm">${update.date}</p><p>${update.text}</p>`;
-          container.appendChild(el);
+        const updates = [...data.updates].sort((a, b) => new Date(b.date) - new Date(a.date));
+        updates.forEach((u, i) => {
+          const row = document.createElement('div');
+          row.className = 'log-row';
+          const cursor = i === 0 ? '<span class="cursor"></span>' : '';
+          row.innerHTML = `<span class="log-date">${u.date}</span><span class="log-text">${u.text}${cursor}</span>`;
+          container.appendChild(row);
         });
+      })
+      .catch(() => {
+        document.getElementById('daily-updates').innerHTML = '<p class="log-text" style="color:var(--dim)">// no updates found</p>';
       });
 
-    // Fetch skills from a JSON file
+    // ---- Skills ----
     fetch('skills.json')
-      .then(response => response.json())
+      .then(r => r.json())
       .then(data => {
-        const skillsContainer = document.getElementById('skills-list');
-        data.skills.forEach(skill => {
-            const el = document.createElement('span');
-            el.className = "bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium";
-            el.textContent = skill;
-            skillsContainer.appendChild(el);
-    });
-  });
-  
-  </script> 
+        const container = document.getElementById('skills-list');
+        const unique = [...new Set(data.skills)];
+        unique.forEach(skill => {
+          const el = document.createElement('span');
+          el.className = 'skill';
+          el.textContent = skill;
+          container.appendChild(el);
+        });
+      })
+      .catch(() => {
+        document.getElementById('skills-list').innerHTML = '<p style="color:var(--dim)">// no skills found</p>';
+      });
+  </script>
 </body>
 </html>
